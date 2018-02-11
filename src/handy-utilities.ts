@@ -57,17 +57,23 @@ export const loadDependency$ = (url: string): Observable<boolean> => {
 		node.onload = (e) => {
 			observer.next(e);
 		};
+		node.onerror = (e) => {
+			observer.error(e)
+		};
 		document.head.appendChild(node);
 	});
 };
 
-export const loadDependency$ = (url: string): Observable<boolean> => {
-	return Observable.create(observer => {
+export async function loadDependency(url: string): Promise<boolean> {
+	return new Promise((resolve, reject) => {
 		let node = document.createElement('script');
 		node.async = true;
 		node.src = url;
 		node.onload = (e) => {
-			observer.next(e);
+			resolve(e);
+		};
+		node.onerror = (e) => {
+			reject(e);
 		};
 		document.head.appendChild(node);
 	});

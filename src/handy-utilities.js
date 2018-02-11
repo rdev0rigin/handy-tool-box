@@ -105,20 +105,32 @@ exports.loadDependency$ = function (url) {
         node.onload = function (e) {
             observer.next(e);
         };
-        document.head.appendChild(node);
-    });
-};
-exports.loadDependency$ = function (url) {
-    return rxjs_1.Observable.create(function (observer) {
-        var node = document.createElement('script');
-        node.async = true;
-        node.src = url;
-        node.onload = function (e) {
-            observer.next(e);
+        node.onerror = function (e) {
+            observer.error(e);
         };
         document.head.appendChild(node);
     });
 };
+function loadDependency(url) {
+    return __awaiter(this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            return [2 /*return*/, new Promise(function (resolve, reject) {
+                    var node = document.createElement('script');
+                    node.async = true;
+                    node.src = url;
+                    node.onload = function (e) {
+                        resolve(e);
+                    };
+                    node.onerror = function (e) {
+                        reject(e);
+                    };
+                    document.head.appendChild(node);
+                })];
+        });
+    });
+}
+exports.loadDependency = loadDependency;
+;
 function convertToArray(map) {
     var newArray = [];
     for (var _i = 0, _a = Object.keys(map); _i < _a.length; _i++) {
