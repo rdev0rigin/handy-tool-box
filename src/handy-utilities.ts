@@ -77,7 +77,7 @@ export async function loadDependency(url: string): Promise<boolean> {
 		};
 		document.head.appendChild(node);
 	});
-};
+}
 
 export function convertToArray(map: Map<any, any> | {[index: string]: {[prop: string]: any}}): any[] {
 	let newArray = [];

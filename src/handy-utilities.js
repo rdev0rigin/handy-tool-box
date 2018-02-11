@@ -130,7 +130,6 @@ function loadDependency(url) {
     });
 }
 exports.loadDependency = loadDependency;
-;
 function convertToArray(map) {
     var newArray = [];
     for (var _i = 0, _a = Object.keys(map); _i < _a.length; _i++) {
